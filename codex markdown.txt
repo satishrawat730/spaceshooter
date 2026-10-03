@@ -1,0 +1,292 @@
+# Create browser space shooter
+
+> create 2d arcade style game for web browser based only
+>  where the player pilots a spaceship against waves of enemies
+> A start screen with instruction , game over screen and restart screen
+>
+> Keyboard movement Left and right Arrow only  and firing using space bar and/or left mouse button,
+> with on screen instructions at bottom
+> Enemy waves, working collisions, a visible score and health or lives
+> Increasing difficulty
+>
+> Player spaceship can move left and right
+> player fire laser at firing rate 1 laser per 5 sec
+>
+> enemy spawn in formation . 2 to 3 ship break formation and attack player
+> firing rate 1 laser per 5sec.
+> some enemies fire 2 bullet simultaneously
+> enemy move zig zag . shooting downward.
+>
+>  enemy health 20 . each player hit damages 10 point
+> player health 50 . each enemy hit damage 10 points
+> player will have 3 live in total. player die 1 life lost . when all life gone . game over ask restart.
+>
+> life score on top left with heart shape.
+> score on top right
+> health bar in mid
+>
+> background white starlight dots moving slowly down and fading
+>
+> music arcade style and
+> sound firing, hit, and ship destroyed
+
+<details><summary>4 previous messages</summary>
+
+> I’ll first inspect the project structure so I can build the game in the right place and match whatever tooling it already uses.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `Get-ChildItem -Force; rg --files -g '!node_modules' -g '!dist' -g '!build' | Select-Object -First 80`
+> - Ran `Get-Location`
+> - Ran `Get-ChildItem -Force | Format-List Name,Mode,Length; rg --files`
+> - Ran `cmd /c dir`
+>
+> </details>
+>
+> The workspace is empty, so I’m building this as a self-contained browser game with no framework or install step. It’ll include a title screen, formation and diving enemies, lives and health UI, escalating waves, restart flow, and synthesized arcade audio.
+>
+> <details><summary>Created 3 files</summary>
+>
+> - Wrote `./game.js` (+118 -0)
+> - Wrote `./index.html` (+34 -0)
+> - Wrote `./style.css` (+4 -0)
+>
+> Tool call
+>
+> Tool: open_in_codex
+> Status: completed
+>
+> </details>
+</details>
+
+Created a complete browser-based space shooter in [index.html](./index.html), with [game.js](./game.js) and [style.css](./style.css).
+
+It includes a start screen with controls, moving starfield, enemy formations and divers, collisions, score, hull health, three lives, escalating waves, game-over and restart screens, and synthesized arcade music and sound effects. Move with **← / →** and fire with **Space** or **left-click**.
+
+Open `index.html` in a browser to play. I haven’t run it in a browser.
+
+> change enemy to ship
+> enemy in formation don't fire 4 -5 enemy ship breaks formation and then start firing moving down. when enemy ship destroyed other ship break formation comes down start firing.
+> enemy movement is zigzag like wave.
+>
+> when all enemies ship destry another formation comes.
+
+<details><summary>4 previous messages</summary>
+
+> I’ll update the enemy waves so four or five ships at a time peel off, zigzag downward while firing, and are replaced by new attackers as they’re destroyed. I’ll also change the game text to call them ships.
+>
+> <details><summary>Explored a file</summary>
+>
+> - Read `./game.js`
+>
+> </details>
+>
+> I found the current wave logic: a few ships were marked as divers at wave setup, while the rest could also fire from formation. I’m changing it to keep the formation together, send out a rotating group of up to five attackers, and bring in a replacement attacker whenever one is destroyed or reaches the player’s line.
+>
+> <details><summary>Edited a file, ran a command</summary>
+>
+> - Wrote `./game.js` (+31 -10)
+>
+> - Wrote `./game.js` (+7 -5)
+>
+> - Ran `git diff --check; git diff --stat; git diff -- game.js`
+>
+> Tool call
+>
+> Tool: open_in_codex
+> Status: completed
+>
+> </details>
+</details>
+
+Updated [game.js](./game.js): formation ships now move in a wave-like zigzag without firing. Once the formation is assembled, up to five ships break away, zigzag downward, and fire. When an attacking ship is destroyed or reaches the bottom, a reserve ship launches to replace it. Clearing the formation starts the next wave.
+
+> change  enemy ship art. make it like star wars ship alike drones
+> add small asteroid rock coming every 25 sec slowly
+
+<details><summary>2 previous messages</summary>
+
+> I’ll redraw the enemy ships as compact drone-like starfighters and add slow-moving asteroids on a 25-second timer, with asteroid collisions handled in gameplay.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./game.js` (+25 -3)
+>
+> </details>
+</details>
+
+Updated [game.js](./game.js) with drone-like enemy ships featuring swept wings and glowing details. Small, slowly drifting asteroids now enter from the top every 25 seconds; colliding with one damages the player.
+
+> put this code on @sites
+
+<details><summary>3 previous messages</summary>
+
+> I’ll check whether a Sites publishing connector is available in this workspace and what access it provides, then use it to publish the game if it’s connected.
+>
+> I don’t see a connected `@sites` publishing tool in the current workspace tools, so I’m checking the available integrations for the Sites capability before choosing a publishing path.
+>
+> <details><summary>Called a tool</summary>
+>
+> MCP tool call
+>
+> codex_apps.plugin_management.search_plugins
+>
+> ```json
+> {
+>   "query": "Sites website publishing",
+>   "limit": 10
+> }
+> ```
+>
+> ```text
+> Action completed.
+> ```
+>
+> ```json
+> {
+>   "meta": null,
+>   "content": [
+>     {
+>       "type": "text",
+>       "text": "{\"plugins\":[{\"id\":\"plugin_asdk_app_6a0783a98c4c8191841404d786d4a4b9\",\"name\":\"app-6a0783a98c4c8191841404d786d4a4b9\",\"display_name\":\"Webflow\",\"description\":\"The Webflow app connects your agents directly to your workspace. They can design, build, and manage sites and author, edit, and localize your CMS.  Built-in app skills let them ship custom code integrations, deploy web apps on  Webflow Cloud, and analyze site activity, performance, and AEO. \\n\\nNew capabilities ship continuously directly to the app, giving your agents superpowers to run your entire digital presence remotely, through Webflow.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_6a2b62fd753c8191bcff02ac79b54c6b\",\"name\":\"app-6a2b62fd753c8191bcff02ac79b54c6b\",\"display_name\":\"WordPress.com\",\"description\":\"Describe what you need and WordPress builds it: a portfolio, a restaurant menu, a blog, an online store. Tell WordPress about your business, your audience, what pages you need. It plans the site, writes the content, picks a design, and launches it on WordPress.com. \\n\\nAlready have a WordPress.com site? Connect it to publish and schedule posts, check your traffic, moderate comments, manage plugins, and update settings. 70+ abilities across your full site. \\n\\nWordPress.com's plugin connects ChatGPT or Codex directly to WordPress.com, so you can build a new site or manage an existing one — all through conversation.\\n\\nIf you are running locally in Codex, you can also connect to WordPress Studio for local site builds, theme and plugin development, site edits and site administration.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_6947eaa4edd081919561e4ee3a2e5dcc\",\"name\":\"wix\",\"display_name\":\"Wix\",\"description\":\"Build your entire site and buy a domain right from the chat. Just ask Wix for the website you want, including all the functionality you need, and get a complete, business-ready site generated for you in minutes. You can also connect the perfect custom domain to your site and manage everything seamlessly in one place. If you like, you can continue editing it inside the Wix Harmony editor using tons more AI tools and smooth drag and drop.\\n\\nFor developers: build and deploy Wix apps with the Wix CLI, including dashboard extensions, backend APIs, site widgets, service plugins and data collections. Build headless sites with Wix Headless, fully hosted on Wix or self-hosted in any framework, powered by Wix backend services for eCommerce, bookings, CMS, events and members. Manage your store, bookings, contacts and site settings programmatically.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_6a576f075ec4819196c203b7049542be\",\"name\":\"app-6a576f075ec4819196c203b7049542be\",\"display_name\":\"GitBook\",\"description\":\"The GitBook MCP server gives AI agents a full read/write connection to your GitBook organization. Create and configure docs sites, spaces, and sections; draft, edit, and restructure content; open change requests and push updates for review; publish OpenAPI specs; and manage site customization — all through natural conversation, with OAuth sign-in or a personal access token. Pairs with the GitBook Skills plugin, which teaches agents how to use these capabilities effectively.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_69d57a067de88191a2dee16c9d78e18c\",\"name\":\"app-69d57a067de88191a2dee16c9d78e18c\",\"display_name\":\"WPWriter\",\"description\":\"WPWriter connects ChatGPT to WordPress so users can manage their sites directly from a chat window.\\n\\nInstead of jumping between WordPress admin screens, SEO plugins, media tools, and separate AI apps, users can ask ChatGPT to create, edit, schedule, publish, and optimize content in natural language.\\n\\nWith WPWriter, users can manage posts, pages, categories, tags, menus, SEO metadata, featured images, media, plugins, themes, and publishing status. They can also set up autoblogging workflows with topic queues and publishing schedules, so new posts can be generated and published automatically.\\n\\nWPWriter is built for bloggers, creators, agencies, marketers, and WordPress site owners who want a faster way to run their WordPress sites while staying in control of every change.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_6a314a73f8ac819195b0d55e36b9c609\",\"name\":\"app-6a314a73f8ac819195b0d55e36b9c609\",\"display_name\":\"Firecrawl\",\"description\":\"Search the web and access data providers and specialized indexes through Alexandria. Research companies, compare products, and find the data you need for your work. Access any page into clean content, and explore scientific papers and code repositories from your conversation.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_connector_691fa57b709c8191b61c48b1f78dce21\",\"name\":\"semrush\",\"display_name\":\"Semrush\",\"description\":\"The Semrush MCP provides structured, quantitative SEO and traffic data for domains, keywords, backlinks, and market-level audience insights. It returns factual datasets including domain analytics, keyword metrics, backlink profiles, traffic data across time periods and channels, geographic and demographic distributions, and competitive or industry-level indicators. The model should invoke this MCP whenever a user requests website metrics, traffic statistics, keyword data, competitor comparisons, or market/audience breakdowns that require authoritative data rather than inference. It should also be used when a user’s question requires data-driven evaluation of a specific domain, even if the query is phrased as advice or improvement guidance.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_693a0a79ffe48191901173077edcf914\",\"name\":\"lovable\",\"display_name\":\"Lovable\",\"description\":\"Lovable builds and edits full-stack web apps from natural language. Describe an app and Lovable creates a project, writes the TypeScript, Tailwind, and shadcn/ui code, and returns a live preview you can watch build. Follow-up messages refine the app, and you can inspect the generated code and diffs, add a PostgreSQL database and third-party connectors, manage reusable project knowledge and skills, and publish the finished app to a public URL.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_6952514760dc8191ab148f77c5794d46\",\"name\":\"base44\",\"display_name\":\"Base44\",\"description\":\"Build fully functional apps and websites with AI in minutes. No code, just your words.\\nBase44 turns a single sentence into a real product. Describe what you want and watch it get built in minutes. Edit, design, and add features from chat, connect tools in one click, add smart agents, schedule tasks on autopilot, and track analytics\\nIf you can describe it, you can build it with Base44.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false},{\"id\":\"plugin_asdk_app_695325bae7348191b58ae9349a963d22\",\"name\":\"app-695325bae7348191b58ae9349a963d22\",\"display_name\":\"TinyFish\",\"description\":\"TinyFish helps ChatGPT answer web questions and complete user-directed browser workflows. It can search the web, read specific pages, and run a live browser session for tasks that require interaction, such as navigating a site, clicking, filling forms, checking page state, or working inside a web app. Use it for specific requested tasks; it is not for broad crawling, bulk URL processing, or unspecified third-party access.\",\"scope\":\"GLOBAL\",\"status\":\"ENABLED\",\"installation_policy\":\"AVAILABLE\",\"installed\":false}]}",
+>       "annotations": null,
+>       "meta": null
+>     }
+>   ],
+>   "structuredContent": {
+>     "plugins": [
+>       {
+>         "id": "plugin_asdk_app_6a0783a98c4c8191841404d786d4a4b9",
+>         "name": "app-6a0783a98c4c8191841404d786d4a4b9",
+>         "display_name": "Webflow",
+>         "description": "The Webflow app connects your agents directly to your workspace. They can design, build, and manage sites and author, edit, and localize your CMS.  Built-in app skills let them ship custom code integrations, deploy web apps on  Webflow Cloud, and analyze site activity, performance, and AEO. \n\nNew capabilities ship continuously directly to the app, giving your agents superpowers to run your entire digital presence remotely, through Webflow.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_6a2b62fd753c8191bcff02ac79b54c6b",
+>         "name": "app-6a2b62fd753c8191bcff02ac79b54c6b",
+>         "display_name": "WordPress.com",
+>         "description": "Describe what you need and WordPress builds it: a portfolio, a restaurant menu, a blog, an online store. Tell WordPress about your business, your audience, what pages you need. It plans the site, writes the content, picks a design, and launches it on WordPress.com. \n\nAlready have a WordPress.com site? Connect it to publish and schedule posts, check your traffic, moderate comments, manage plugins, and update settings. 70+ abilities across your full site. \n\nWordPress.com's plugin connects ChatGPT or Codex directly to WordPress.com, so you can build a new site or manage an existing one — all through conversation.\n\nIf you are running locally in Codex, you can also connect to WordPress Studio for local site builds, theme and plugin development, site edits and site administration.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_6947eaa4edd081919561e4ee3a2e5dcc",
+>         "name": "wix",
+>         "display_name": "Wix",
+>         "description": "Build your entire site and buy a domain right from the chat. Just ask Wix for the website you want, including all the functionality you need, and get a complete, business-ready site generated for you in minutes. You can also connect the perfect custom domain to your site and manage everything seamlessly in one place. If you like, you can continue editing it inside the Wix Harmony editor using tons more AI tools and smooth drag and drop.\n\nFor developers: build and deploy Wix apps with the Wix CLI, including dashboard extensions, backend APIs, site widgets, service plugins and data collections. Build headless sites with Wix Headless, fully hosted on Wix or self-hosted in any framework, powered by Wix backend services for eCommerce, bookings, CMS, events and members. Manage your store, bookings, contacts and site settings programmatically.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_6a576f075ec4819196c203b7049542be",
+>         "name": "app-6a576f075ec4819196c203b7049542be",
+>         "display_name": "GitBook",
+>         "description": "The GitBook MCP server gives AI agents a full read/write connection to your GitBook organization. Create and configure docs sites, spaces, and sections; draft, edit, and restructure content; open change requests and push updates for review; publish OpenAPI specs; and manage site customization — all through natural conversation, with OAuth sign-in or a personal access token. Pairs with the GitBook Skills plugin, which teaches agents how to use these capabilities effectively.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_69d57a067de88191a2dee16c9d78e18c",
+>         "name": "app-69d57a067de88191a2dee16c9d78e18c",
+>         "display_name": "WPWriter",
+>         "description": "WPWriter connects ChatGPT to WordPress so users can manage their sites directly from a chat window.\n\nInstead of jumping between WordPress admin screens, SEO plugins, media tools, and separate AI apps, users can ask ChatGPT to create, edit, schedule, publish, and optimize content in natural language.\n\nWith WPWriter, users can manage posts, pages, categories, tags, menus, SEO metadata, featured images, media, plugins, themes, and publishing status. They can also set up autoblogging workflows with topic queues and publishing schedules, so new posts can be generated and published automatically.\n\nWPWriter is built for bloggers, creators, agencies, marketers, and WordPress site owners who want a faster way to run their WordPress sites while staying in control of every change.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_6a314a73f8ac819195b0d55e36b9c609",
+>         "name": "app-6a314a73f8ac819195b0d55e36b9c609",
+>         "display_name": "Firecrawl",
+>         "description": "Search the web and access data providers and specialized indexes through Alexandria. Research companies, compare products, and find the data you need for your work. Access any page into clean content, and explore scientific papers and code repositories from your conversation.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_connector_691fa57b709c8191b61c48b1f78dce21",
+>         "name": "semrush",
+>         "display_name": "Semrush",
+>         "description": "The Semrush MCP provides structured, quantitative SEO and traffic data for domains, keywords, backlinks, and market-level audience insights. It returns factual datasets including domain analytics, keyword metrics, backlink profiles, traffic data across time periods and channels, geographic and demographic distributions, and competitive or industry-level indicators. The model should invoke this MCP whenever a user requests website metrics, traffic statistics, keyword data, competitor comparisons, or market/audience breakdowns that require authoritative data rather than inference. It should also be used when a user’s question requires data-driven evaluation of a specific domain, even if the query is phrased as advice or improvement guidance.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_693a0a79ffe48191901173077edcf914",
+>         "name": "lovable",
+>         "display_name": "Lovable",
+>         "description": "Lovable builds and edits full-stack web apps from natural language. Describe an app and Lovable creates a project, writes the TypeScript, Tailwind, and shadcn/ui code, and returns a live preview you can watch build. Follow-up messages refine the app, and you can inspect the generated code and diffs, add a PostgreSQL database and third-party connectors, manage reusable project knowledge and skills, and publish the finished app to a public URL.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_6952514760dc8191ab148f77c5794d46",
+>         "name": "base44",
+>         "display_name": "Base44",
+>         "description": "Build fully functional apps and websites with AI in minutes. No code, just your words.\nBase44 turns a single sentence into a real product. Describe what you want and watch it get built in minutes. Edit, design, and add features from chat, connect tools in one click, add smart agents, schedule tasks on autopilot, and track analytics\nIf you can describe it, you can build it with Base44.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       },
+>       {
+>         "id": "plugin_asdk_app_695325bae7348191b58ae9349a963d22",
+>         "name": "app-695325bae7348191b58ae9349a963d22",
+>         "display_name": "TinyFish",
+>         "description": "TinyFish helps ChatGPT answer web questions and complete user-directed browser workflows. It can search the web, read specific pages, and run a live browser session for tasks that require interaction, such as navigating a site, clicking, filling forms, checking page state, or working inside a web app. Use it for specific requested tasks; it is not for broad crawling, bulk URL processing, or unspecified third-party access.",
+>         "scope": "GLOBAL",
+>         "status": "ENABLED",
+>         "installation_policy": "AVAILABLE",
+>         "installed": false
+>       }
+>     ]
+>   },
+>   "isError": false
+> }
+> ```
+>
+> </details>
+</details>
+
+I can’t publish to `@sites` from this chat because its publishing tools aren’t connected here. The game files are ready; connect the Sites app or tell me which hosting service to use, and I can publish them there.
+
+> how to connect
+
+<details><summary>2 previous messages</summary>
+
+> I’ll check the current Codex instructions for connecting apps so I can give you the right steps for `@sites`.
+>
+> <details><summary>Searched the web</summary>
+>
+> <details><summary>Explored a file</summary>
+>
+> - Read `C:/Users/satis/.codex/skills/.system/openai-docs/SKILL.md`
+>
+> </details>
+>
+> Searched the web for `site:help.openai.com connect apps ChatGPT apps directory settings connectors`
+>
+> </details>
+</details>
+
+I was imprecise earlier: `@sites` isn’t a publishing connector I can connect to from this chat.
+
+If you mean **Site tools** in the ChatGPT desktop app, there’s no separate connection to set up. Open the built-in Browser, visit a supported site, and sign in there. If the page offers Site tools, an arrow appears in the address bar. You can turn them on under **Browser settings → Permissions → Enable site tools**. [OpenAI’s guide to Site tools](https://help.openai.com/en/articles/20001423-using-site-tools-in-the-chatgpt-desktop-app)
+
+Those tools depend on what the open webpage supports; they don’t automatically publish local game files. To put the game online, tell me which hosting site you mean, or open it in the built-in Browser if it provides a publishing tool.
